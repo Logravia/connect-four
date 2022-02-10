@@ -10,8 +10,8 @@ class Board
   private_constant :WIDTH, :HEIGHT
   attr_reader :token_grid
 
-  def initialize()
-    @token_grid = Array.new(HEIGHT) {Array.new(WIDTH)}
+  def initialize(token_grid = Array.new(HEIGHT) {Array.new(WIDTH)})
+    @token_grid = token_grid
   end
 
   def drop_token(column, token)
@@ -26,6 +26,11 @@ class Board
      end
   end
 
+  def victory?
+    false
+  end
+
+  private
   def pull_token_down(column, token)
     if @token_grid.last[column].nil?
       @token_grid.last[column] = token
