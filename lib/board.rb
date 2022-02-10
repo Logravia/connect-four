@@ -28,8 +28,10 @@ class Board
   end
 
   def victory?
-    horizontal_win? || vertical_win?
+    horizontal_win? || vertical_win? || diagonal_win?
   end
+
+  private
 
   def horizontal_win?
     @token_grid.each do |row|
@@ -45,6 +47,54 @@ class Board
     false
   end
 
+  def diagonal_win?
+
+    l_diagonals.each do |diagonal|
+      return true if required_consecutive_tokens(diagonal)
+    end
+
+    r_diagonals.each do |diagonal|
+      return true if required_consecutive_tokens(diagonal)
+    end
+
+    false
+
+  end
+
+  def l_diagonals(token_grid = @token_grid)
+    cur_col = 0
+    cur_row = token_grid.size
+    diagonals = []
+
+    # Get all the diagonal lines going left to right from the left edge
+    while cur_row > 0
+     cur_row -= 1
+     diagonals << get_diagonal_line(cur_col, cur_row, token_grid)
+    end
+
+    # Get all the diagonal lines going left to right from the top edge
+    while cur_col < token_grid.size
+     cur_col += 1
+     diagonals << get_diagonal_line(cur_col, cur_row, token_grid)
+    end
+
+    diagonals
+  end
+
+  def r_diagonals
+    l_diagonals(@token_grid.reverse)
+  end
+
+  def get_diagonal_line(cur_col, cur_row, matrix)
+    diagonal = []
+    while cur_row < matrix.length && cur_col < matrix[0].length
+        diagonal << matrix[cur_row][cur_col]
+        cur_row += 1
+        cur_col += 1
+    end
+    diagonal
+  end
+
   def required_consecutive_tokens(arr)
     arr.each_cons(CONSEC_TOKENS_REQ) do |arr_slice|
       if arr_slice.all? arr_slice.first and arr_slice.none? nil
@@ -54,7 +104,6 @@ class Board
     false
   end
 
-  private
   def pull_token_down(column, token)
     if @token_grid.last[column].nil?
       @token_grid.last[column] = token
