@@ -28,12 +28,19 @@ class Board
   end
 
   def victory?
-    horizontal_win?
+    horizontal_win? || vertical_win?
   end
 
   def horizontal_win?
     @token_grid.each do |row|
       return true if required_consecutive_tokens(row)
+    end
+    false
+  end
+
+  def vertical_win?
+    @token_grid.transpose.each do |column|
+      return true if required_consecutive_tokens(column)
     end
     false
   end

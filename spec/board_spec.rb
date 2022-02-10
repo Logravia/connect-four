@@ -84,11 +84,13 @@ describe Board do
 
   describe '#victory?' do
 
+    context "handles horizontal victory" do
+
       it "returns false when max same 3 consecutive tokens horizontally" do
         board = described_class.new([
           [nil,nil,nil,nil,nil,nil,nil],
           [nil,nil,nil,nil,nil,nil,nil],
-          ["T",nil,nil,nil,:tk,nil,nil],
+          ["T",nil,nil,nil,nil,nil,nil],
           ["T","T","T",nil,nil,nil,"T"],
           ["X","X","X","T","X","T","T"],
           ["T","T","T","X","X","T","T"],
@@ -96,8 +98,6 @@ describe Board do
         )
         expect(board).not_to be_victory
       end
-
-    context "returns true when there are 4 consecutive tokens horizontally" do
 
       it "returns true 4 when consecutive tokens at bottom" do
         board = described_class.new([
@@ -126,6 +126,48 @@ describe Board do
       end
 
     end
+
+    context "handles vertical victory" do
+      it "returns false when max same 3 consecutive tokens vertically" do
+        board = described_class.new([
+          [nil,nil,"X",nil,"X",nil,nil],
+          ["T",nil,"T",nil,"X",nil,nil],
+          ["T",nil,"T",nil,"T",nil,"X"],
+          ["T","T","T",nil,"X",nil,"T"],
+          ["X","X","X","T","X","T","T"],
+          ["T","T","T","X","X","T","T"],
+                                    ]
+        )
+        expect(board).not_to be_victory
+      end
+
+      it "returns true when 4 consecutive tokens vertically I" do
+        board = described_class.new([
+          ["T",nil,"X",nil,"X",nil,nil],
+          ["T",nil,"T",nil,"X",nil,nil],
+          ["T",nil,"T",nil,"T",nil,"X"],
+          ["T","T","T",nil,"X",nil,"T"],
+          ["X","X","X","T","X","T","T"],
+          ["T","T","T","X","X","T","T"],
+                                    ]
+        )
+        expect(board).to be_victory
+      end
+
+      it "returns true when 4 consecutive tokens vertically II" do
+        board = described_class.new([
+          [nil,nil,nil,nil,nil,nil,nil],
+          [nil,nil,nil,nil,nil,nil,nil],
+          [nil,nil,nil,nil,nil,"T",nil],
+          [nil,nil,nil,nil,nil,"T",nil],
+          ["X","X","X","T","X","T","T"],
+          ["T","T","T","X","X","T","T"],
+                                    ]
+        )
+        expect(board).to be_victory
+      end
+    end
+
   end
 
 end
