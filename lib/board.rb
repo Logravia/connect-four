@@ -6,6 +6,7 @@ class Board
 
   WIDTH = 7
   HEIGHT = 6
+  CONSEC_TOKENS_REQ = 4
 
   private_constant :WIDTH, :HEIGHT
   attr_reader :token_grid
@@ -27,6 +28,22 @@ class Board
   end
 
   def victory?
+    horizontal_win?
+  end
+
+  def horizontal_win?
+    @token_grid.each do |row|
+      return true if required_consecutive_tokens(row)
+    end
+    false
+  end
+
+  def required_consecutive_tokens(arr)
+    arr.each_cons(CONSEC_TOKENS_REQ) do |arr_slice|
+      if arr_slice.all? arr_slice.first and arr_slice.none? nil
+        return true
+      end
+    end
     false
   end
 

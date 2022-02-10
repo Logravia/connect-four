@@ -81,4 +81,51 @@ describe Board do
       expect(token_grid).to be_empty
     end
   end
+
+  describe '#victory?' do
+
+      it "returns false when max same 3 consecutive tokens horizontally" do
+        board = described_class.new([
+          [nil,nil,nil,nil,nil,nil,nil],
+          [nil,nil,nil,nil,nil,nil,nil],
+          ["T",nil,nil,nil,:tk,nil,nil],
+          ["T","T","T",nil,nil,nil,"T"],
+          ["X","X","X","T","X","T","T"],
+          ["T","T","T","X","X","T","T"],
+                                    ]
+        )
+        expect(board).not_to be_victory
+      end
+
+    context "returns true when there are 4 consecutive tokens horizontally" do
+
+      it "returns true 4 when consecutive tokens at bottom" do
+        board = described_class.new([
+          [nil,nil,nil,nil,nil,nil,nil],
+          [nil,nil,nil,nil,nil,nil,nil],
+          [nil,nil,nil,nil,nil,nil,nil],
+          [nil,nil,nil,nil,nil,nil,nil],
+          [nil,nil,nil,nil,nil,nil,nil],
+          ["T","T","T","T","X","T","T"],
+                                    ]
+        )
+        expect(board).to be_victory
+      end
+
+      it "returns true when 4 consecutive token in middle" do
+        board = described_class.new([
+          [nil,nil,nil,nil,nil,nil,nil],
+          [nil,nil,nil,nil,nil,nil,nil],
+          [nil,nil,"T","T","T","T",nil],
+          [nil,nil,"X","T","X","T",nil],
+          [nil,nil,"T","X","T","X",nil],
+          ["T","T","T","X","X","X","T"],
+                                    ]
+        )
+        expect(board).to be_victory
+      end
+
+    end
+  end
+
 end
