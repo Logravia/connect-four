@@ -9,4 +9,6 @@ class Game
   end
 
   def special_input?(input); end
+
+
 end

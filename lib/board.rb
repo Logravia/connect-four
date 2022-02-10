@@ -31,6 +31,10 @@ class Board
     horizontal_win? || vertical_win? || diagonal_win?
   end
 
+  def tie?
+    @token_grid.flatten.none? nil
+  end
+
   private
 
   def horizontal_win?
