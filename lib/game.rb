@@ -46,5 +46,12 @@ class Game
     end
   end
 
+  def another_game?
+
+  end
+
+  def handle_special_input(input)
+
+  end
 
 end
