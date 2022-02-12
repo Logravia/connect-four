@@ -32,7 +32,39 @@ module Msg
   end
 
   def self.victory
-    'Congratulations! You did it!'
+    'Congratulations! Shame on the other guy.'
+  end
+
+  def self.choose_token
+    ['choose your token.',
+     'pick your token.',
+     'choose something to represent you.',
+     'pick a symbol'].sample
+  end
+
+  def self.same_token
+    ['Sorry, you chose the same token as player one',
+     'Can\'t choose that',
+     'That token belong to first player'].sample
+  end
+
+  def self.good_token
+    ['That is a good token',
+     'I like your choice',
+     'Not a bad choice',
+     'Nice, I like that',
+     'Not too shabby',
+     'Pretty cool token you got there',].sample
+  end
+
+  def self.choose_column
+    ['Time to drop',
+     'Pick a column and drop your',
+     'Choose a column and drop',
+     'One to seven, enter, drop that',
+     'Pick a column,',
+     'Select a column,',
+     'Pick one number and enter,'].sample
   end
 
 end
