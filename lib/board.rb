@@ -66,17 +66,19 @@ class Board
   end
 
   def l_diagonals(token_grid = @token_grid)
+    # Starting at first column, last row
     cur_col = 0
     cur_row = token_grid.size
     diagonals = []
 
-    # Get all the diagonal lines going left to right from the left edge
     while cur_row > 0
+    # Go up the left edge of the matrix
      cur_row -= 1
+     # Gather all the diagonal lines going left to right from it
      diagonals << get_diagonal_line(cur_col, cur_row, token_grid)
     end
 
-    # Get all the diagonal lines going left to right from the top edge
+    # Get all the diagonal lines going left to right from the whole top edge
     while cur_col < token_grid.size
      cur_col += 1
      diagonals << get_diagonal_line(cur_col, cur_row, token_grid)
@@ -115,7 +117,7 @@ class Board
     end
 
     @token_grid.each_with_index do |row, row_depth|
-      # When find a row with a token in it
+      # When you find a row with a token in the column you are going down
       if not row[column].nil?
         # Add token above it
         @token_grid[row_depth-1][column] = token
