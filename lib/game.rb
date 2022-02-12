@@ -38,5 +38,13 @@ class Game
   end
 
 
+  def drop_token
+    successful_drop = false
+    until successful_drop
+      successful_drop = @board.drop_token(@players[0].choose_column, @players[0].token)
+      @display.game(@board.token_grid, Msg.column_full)
+    end
+  end
+
 
 end
