@@ -4,21 +4,24 @@ class Display
 
   def game(state, msg=nil)
     clear
-    msg
+    message(msg)
+    space
     print_token_grid(state)
     line
     numbers
-  end
-
-  def text(text)
-   puts text
+    space
   end
 
   def print_token_grid(state)
     state.each do |row|
       row.each do |column|
-        print "[#{column}] "
+        if column.nil?
+          print "[ ]"
+        else
+          print "[#{column}]"
+        end
       end
+      puts ""
     end
   end
 
@@ -46,7 +49,7 @@ class Display
     msg.chars.each do |_char|
       print '#'
     end
-    puts ""
+    puts "###"
   end
 
   def clear
