@@ -23,6 +23,20 @@ class Game
     end
   end
 
+  def play
+    set_player_tokens
+    loop do
+      @display.game(@board.token_grid, "#{Msg.choose_column} #{players[0].token}")
+      drop_token
+
+      (puts Msg.victory; break) if @board.victory?
+      (puts  9Msg.tie; break) if @board.tie?
+
+      @players = @players.rotate
+    end
+    another_game?
+  end
+
 
 
 end
